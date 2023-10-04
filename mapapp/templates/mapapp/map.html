@@ -2,23 +2,30 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>지도 생성하기</title>
-    
+    <title>부동산</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css'%}">
 </head>
 <body>
-<!-- 지도를 표시할 div 입니다 -->
-<div id="map" style="width:100%;height:100vh;"></div>
+    <!-- Fixed Top Menu -->
+    <div class="navbar">
+        <a href="" id="home"><img width="35" height="35" src="https://img.icons8.com/material-rounded/24/real-estate.png" alt="real-estate"/></a>
+        <a href="" id="admin">admin<img width="35" height="35" src="https://img.icons8.com/fluency-systems-regular/48/system-administrator-male.png" alt="system-administrator-male"/></a>
+    </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97fb3d9e8889235694aa70e6e0a72f59"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map"></div>
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-</script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97fb3d9e8889235694aa70e6e0a72f59"></script>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = { 
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
+    </script>
 </body>
 </html>
