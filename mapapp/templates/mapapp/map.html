@@ -20,8 +20,12 @@
     <div class="mapandbar">
         <div id="map"></div>
         <div id="sidebar">
-            <form action="" method="" class="locations">
+            <form action="../add_location/" method="post" class="locations">
+                {% csrf_token %}
                 <h1>위치 등록</h1> 
+                <input type="text" name="x" id="x" class="notvisible"/>
+                <input type="text" name="y" id="y" class="notvisible"/>
+
                 <div id="clickLatlng"></div>
                 <div class="address">
                     <h3><label for="address">주소:</label></h3><input type="text" name="address" id="address" required />
@@ -70,6 +74,10 @@
             var lat = latlng.getLat();
             var lng = latlng.getLng();
 
+            // assign lat and lng to not visible input forms
+            document.getElementById("x").value = lat;
+            document.getElementById("y").value = lng;
+
             searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     var content = !!result[0].road_address ? result[0].road_address.address_name : result[0].address.address_name;
@@ -83,8 +91,8 @@
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker.setPosition(latlng);
 
-            var message = '클릭한 위치의 위도는 ' + lat + ' 이고, ';
-            message += '경도는 ' + lng + ' 입니다';
+            var message = '위도: ' + lat;
+            message += ' & 경도: ' + lng;
     
             var resultDiv = document.getElementById('clickLatlng'); 
             resultDiv.innerHTML = message;
