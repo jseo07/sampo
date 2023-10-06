@@ -18,3 +18,8 @@ def add_location(request):
     loc = location(x=vx, y=vy, address=vaddress, description=vdescription)
     loc.save()
     return render(request, 'mapapp/map.html', {})
+
+def show_locations(request):
+    all_locations = location.objects.all
+    return render(request, 'mapapp/user.html', {'all_locations':all_locations})
+    

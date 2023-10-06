@@ -10,10 +10,15 @@
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;400;600&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div class="main">
-            <h1>부동산</h1>
-            <button onclick="location.href='../adminis/'">관리자</button>
-            <button onclick="location.href='../user/'">유저</button>
-        </div>
+        <div id="element"></div>
+        {{ all_locations }}
+
+        <script>
+            var element = '';
+            const locations = '{{ all_locations|escapejs }}';
+            document.getElementById("element").value = locations;
+            
+
+        </script>
     </body>
 </html>
