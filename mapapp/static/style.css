@@ -20,10 +20,6 @@ body {
   #home{
     float:left;
   }
-  #admin{
-    float:right;
-  }
-
 
   #map{ 
     position:fixed;
@@ -75,7 +71,7 @@ input[type=text]{
   height: 150px;
 }
 
-input[type=submit]{
+input[type=submit], button{
   appearance: none;
   -webkit-appearance: none;
   padding: 20px;
@@ -86,4 +82,21 @@ input[type=submit]{
   width: 40%;
   text-align: center;
   margin-top: 50px;
+}
+
+button:hover{
+  background-color: gray;
+}
+
+.main{
+  display: grid;
+  grid-template-rows: 1 1 1;
+  text-align: center;
+  font-size: 40px;
+}
+button{
+  padding: 20px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
