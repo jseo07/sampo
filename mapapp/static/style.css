@@ -2,6 +2,26 @@
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
+
+.wrap{
+  bottom: 0px;
+  height: 70px;
+}
+.body{
+  width: 400px;
+  height: 150px;
+  background-color: white;
+  border: 1px black;
+  padding: 10px;
+  box-shadow:0 0 40px 15px rgba(0,0,0,0.06);
+}
+
+.body .address{
+  font-size: 20px;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+
 .navbar {
     overflow: hidden;
     display: block;

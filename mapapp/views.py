@@ -2,13 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import location
 from django.contrib import messages
+import json
 
 # Create your views here.
 def main(request):
     return render(request, 'mapapp/main.html')
     
 def index(request):
-    return render(request, 'mapapp/map.html')
+    all_locations = location.objects.all()
+    context = {
+        "locations": all_locations,
+        "locations_js" : json.dumps([location.to_json() for location in all_locations]) 
+    }
+    return render(request, 'mapapp/map.html', context)
 
 def add_location(request):
     vx = request.POST['x']
@@ -19,7 +25,4 @@ def add_location(request):
     loc.save()
     return render(request, 'mapapp/map.html', {})
 
-def show_locations(request):
-    all_locations = location.objects.all
-    return render(request, 'mapapp/user.html', {'all_locations':all_locations})
     

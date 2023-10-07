@@ -9,16 +9,12 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@200;400;600&display=swap" rel="stylesheet">
     </head>
-    <body>
-        <div id="element"></div>
-        {{ all_locations }}
-
+    <body> 
+        <div id="temp"></div>
         <script>
-            var element = '';
-            const locations = '{{ all_locations|escapejs }}';
-            document.getElementById("element").value = locations;
-            
-
+            let locations = JSON.parse("{{ locations_js | escapejs }}");
+            console.log(locations);
         </script>
+    
     </body>
 </html>
