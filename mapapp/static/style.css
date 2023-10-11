@@ -108,7 +108,20 @@ input:checked + .slider {
 input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
-
+#roadview{
+  transform:translateX(25%);
+  width: 70%;
+  height:25%;
+  z-index:1;
+  background-color:white;
+  position:fixed;
+  left: 0;
+  bottom: 0;
+  display: none;
+  border-radius: 15px;
+  bottom: 30px;
+  border: 8px solid aliceblue;
+}
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
@@ -130,6 +143,8 @@ input:checked + .slider:before {
   }
 
   #home{
+    padding-top: 11px;
+    padding-left: 10px;
     float:left;
   }
 

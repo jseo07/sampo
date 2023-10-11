@@ -51,6 +51,8 @@
         <button onclick="setMapNormal()">일반지도</button>
     </div>
     <!-- 지도를 표시할 div 입니다 -->
+
+    <div id="roadview"></div>
     
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97fb3d9e8889235694aa70e6e0a72f59&libraries=services"></script>
     <script>
@@ -129,6 +131,10 @@
             closeBtn.setAttribute('class', 'closebtn');
             closeBtn.onclick = function () {
                 overlay.setMap(null);
+                var roadviewContainer = document.getElementById('roadview');
+                if(roadviewContainer.style.display=='grid'){
+                    roadviewContainer.style.display='none';
+                }
             };
 
             var editBtn = document.createElement('button');
@@ -152,6 +158,30 @@
                 if (checkbox.checked == true){
                     document.getElementById("editBtn").style.display="block";
                 }
+                var roadviewContainer = document.getElementById('roadview'); //로드뷰를 표시할 div
+                var roadview = new kakao.maps.Roadview(roadviewContainer); //로드뷰 객체
+                var roadviewClient = new kakao.maps.RoadviewClient(); //좌표로부터 로드뷰 파노ID를 가져올 로드뷰 helper객체
+
+                var position = data['position'];
+
+                roadviewContainer.style.display='grid';
+
+                
+                // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
+                roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+                    if(panoId == null){
+                        roadviewContainer.innerHTML = "주변 50m 반경에 로드뷰가 없음.";
+                        roadviewContainer.style.height='50px';
+                        roadviewContainer.style.alignItems='center';
+                        roadviewContainer.style.textAlign='center';
+                    } else {
+                        if(roadviewContainer.style.height=='50px'){
+                            roadviewContainer.style.height='40%';
+                        }
+                        roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
+                    }
+                });
+
             });
         }
 
