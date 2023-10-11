@@ -25,6 +25,7 @@
     <div class="mapandbar">
         <div id="map"></div>
         <div id="sidebar">
+            <div class="sideclose"><img onclick="closeSideBar()" width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/delete-sign.png" alt="delete-sign"/></button></div>
             <form action="../add_location/" method="post" class="locations">
                 {% csrf_token %}
                 <h1>위치 등록</h1> 
@@ -43,6 +44,11 @@
                   </div>
             </form>
         </div>
+    </div>
+
+    <div class="mapview">
+        <button onclick="setMapSkyview()">스카이뷰</button>
+        <button onclick="setMapNormal()">일반지도</button>
     </div>
     <!-- 지도를 표시할 div 입니다 -->
     
@@ -116,23 +122,36 @@
             address.innerHTML =  data['address'];
             desc.innerHTML = data['description']
             
+            var buttons = document.createElement('div');
+            buttons.setAttribute('class', 'buttons');
             var closeBtn = document.createElement('button');
             closeBtn.innerHTML = '닫기';
             closeBtn.setAttribute('class', 'closebtn');
             closeBtn.onclick = function () {
                 overlay.setMap(null);
             };
+
+            var editBtn = document.createElement('button');
+            editBtn.innerHTML = '수정';
+            editBtn.setAttribute('id', 'editBtn');
+
             var body = document.createElement('div');
             body.setAttribute('class', 'body');
             body.appendChild(address);
             body.appendChild(desc);
             content.appendChild(body);
-            content.appendChild(closeBtn);
+            buttons.appendChild(closeBtn);
+            buttons.appendChild(editBtn);
+            content.appendChild(buttons);
             overlay.setContent(content);
 
 
             kakao.maps.event.addListener(exmarker, 'click', function() {
                 overlay.setMap(map);
+                var checkbox = document.getElementById("admin_check");
+                if (checkbox.checked == true){
+                    document.getElementById("editBtn").style.display="block";
+                }
             });
         }
 
@@ -156,6 +175,11 @@
             };
         }
 
+        function closeSideBar(){
+            document.getElementById("sidebar").style.display="none";
+            marker.setVisible(false);
+        }
+
         var geocoder = new kakao.maps.services.Geocoder();
 
         var checkbox = document.querySelector('#admin_check');
@@ -165,10 +189,9 @@
                     // 지도에 클릭 이벤트를 등록합니다
                     // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
                     kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-
+                        
                         // Show sidebar when map clicked
                         document.getElementById("sidebar").style.display="block";
-
                         // 클릭한 위도, 경도 정보를 가져옵니다 
                         var latlng = mouseEvent.latLng; 
                         var lat = latlng.getLat();
@@ -190,6 +213,10 @@
 
                         // 마커 위치를 클릭한 위치로 옮깁니다
                         marker.setPosition(latlng);
+                        if(marker.getVisible() == false){
+                            marker.setVisible(true);
+                        }
+                        
 
                         var message = '위도: ' + lat;
                         message += ' & 경도: ' + lng;
@@ -210,6 +237,22 @@
                     location.reload();
                 }
         });
+
+        var maptype;
+        maptype = kakao.maps.MapTypeId.HYBRID;
+        map.setMapTypeId(maptype);
+
+        function setMapSkyview(){
+            var maptype = kakao.maps.MapTypeId.HYBRID;
+            map.setMapTypeId(maptype);
+        }
+
+        function setMapNormal(){
+            var maptype = kakao.maps.MapTypeId.ROADMAP;
+            map.setMapTypeId(maptype);
+        }
+
+
 
     </script>
 </body>

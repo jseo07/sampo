@@ -25,11 +25,12 @@ body {
 .navbar {
     overflow: hidden;
     display: block;
-    background-color: white;
+    background-color: aliceblue;
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     z-index: 1;
+    left: 0;
   }
 
   #adminlabel{
@@ -55,6 +56,13 @@ body {
   height: 0;
 }
 
+.sideclose{
+  display: block;
+  float: right;
+  padding: 20px;
+
+}
+
 /* The slider */
 .slider {
   position: absolute;
@@ -68,6 +76,10 @@ body {
   transition: .4s;
 }
 
+#editBtn{
+  display:none;
+}
+
 .slider:before {
   position: absolute;
   content: "";
@@ -78,6 +90,15 @@ body {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
+}
+
+.buttons{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.buttons *{
+  width: 100px;
 }
 
 input:checked + .slider {
@@ -117,6 +138,7 @@ input:checked + .slider:before {
     top: 40px;
     width: 100%;
     height:100vh;
+    left: 0;
   }
 
   #sidebar{
@@ -132,6 +154,26 @@ input:checked + .slider:before {
     overflow-x: hidden; /* Disable horizontal scroll */
     display: none;
     place-items: center;
+  }
+
+  .mapview{
+     position: fixed;
+     right: 0;
+     z-index: 1;
+     margin-top: 60px;
+     margin-right: 20px;
+  }
+
+  .mapview button{
+    font-size: 18px;
+    width: 120px;
+    background-color: aliceblue;
+    color: black;
+    font-weight: bold;
+  }
+
+  .mapview button:hover{
+    background-color: cadetblue;
   }
 
   .notvisible{
