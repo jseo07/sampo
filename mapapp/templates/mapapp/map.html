@@ -128,12 +128,16 @@
             buttons.setAttribute('class', 'buttons');
             var closeBtn = document.createElement('button');
             closeBtn.innerHTML = '닫기';
+            closeBtn.style.zIndex='1';
             closeBtn.setAttribute('class', 'closebtn');
             closeBtn.onclick = function () {
                 overlay.setMap(null);
                 var roadviewContainer = document.getElementById('roadview');
                 if(roadviewContainer.style.display=='grid'){
                     roadviewContainer.style.display='none';
+                }
+                if(document.getElementById("sidebar").style.display=="block"){
+                    document.getElementById("sidebar").style.display="none";
                 }
             };
 
@@ -165,6 +169,10 @@
                 var position = data['position'];
 
                 roadviewContainer.style.display='grid';
+                
+                if(document.getElementById("sidebar").style.display=="block"){
+                    document.getElementById("sidebar").style.display="none";
+                }
 
                 
                 // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
