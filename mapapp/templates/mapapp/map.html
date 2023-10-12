@@ -40,7 +40,7 @@
                     <label for="description"><h3>설명:</h3></label><textarea name="description" id="description" rows="10" cols="30" required></textarea>
                   </div>
                   <div class="submit">
-                    <input type="submit" value="제출" />
+                    <input type="submit" value="제출"/>
                   </div>
             </form>
         </div>
@@ -53,6 +53,23 @@
     <!-- 지도를 표시할 div 입니다 -->
 
     <div id="roadview"></div>
+
+    <div id="editview">
+        <div class="editlocation">
+            <form action="../update_location/" method="post">
+                {% csrf_token %}
+                <input type="text" name="originaladdress" id="originaladdress" style="display:none"/>
+                <label for="address"><h3>주소:</label></h3><input type="text" name="address" id="address"/>
+                <label for="description"><h3>설명:</h3></label><textarea name="description" id="description" rows="10" cols="30"></textarea>
+                <input type="submit" value="수정" id="updatebtn"/>
+            </form>
+            <form action="../delete_location/" method="post">
+                {% csrf_token %}
+                <input type="text" name="originaladdress" id="originaladdress2" style="display:none"/>
+                <input type="submit" value="삭제" id="delete"/>
+            </form>
+        </div>
+    </div>
     
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97fb3d9e8889235694aa70e6e0a72f59&libraries=services"></script>
     <script>
@@ -139,15 +156,40 @@
                 if(document.getElementById("sidebar").style.display=="block"){
                     document.getElementById("sidebar").style.display="none";
                 }
+                if(document.getElementById("editview").style.display=="grid"){
+                    document.getElementById("editview").style.display="none";
+                }
             };
 
             var editBtn = document.createElement('button');
             editBtn.innerHTML = '수정';
             editBtn.setAttribute('id', 'editBtn');
+            editBtn.onclick = function(){
+                if(document.getElementById("sidebar").style.display=="block"){
+                    document.getElementById("sidebar").style.display="none";
+                }
+                document.getElementById("editview").style.display="grid";
+                var curPosition = exmarker.getPosition();
+
+                var curLocation;
+
+                for (let i = 0; i < locations.length; i++){
+                    temp = {}
+                    var compare = new kakao.maps.LatLng(locations[i].x, locations[i].y);
+                    if((compare.getLat() == curPosition.getLat()) && (compare.getLng() == curPosition.getLng())){
+                        curLocation = locations[i];
+                    }
+                }
+
+                document.getElementById("originaladdress").value = curLocation.address;
+                document.getElementById("originaladdress2").value = curLocation.address;
+            }
 
             var body = document.createElement('div');
             body.setAttribute('class', 'body');
             body.appendChild(address);
+            body.style.border='4px solid cadetblue';
+            body.style.borderRadius='15px';
             body.appendChild(desc);
             content.appendChild(body);
             buttons.appendChild(closeBtn);
@@ -176,20 +218,19 @@
 
                 
                 // 특정 위치의 좌표와 가까운 로드뷰의 panoId를 추출하여 로드뷰를 띄운다.
-                roadviewClient.getNearestPanoId(position, 50, function(panoId) {
+                roadviewClient.getNearestPanoId(position, 100, function(panoId) {
                     if(panoId == null){
-                        roadviewContainer.innerHTML = "주변 50m 반경에 로드뷰가 없음.";
+                        roadviewContainer.innerHTML = "주변 100m 반경에 로드뷰가 없음.";
                         roadviewContainer.style.height='50px';
                         roadviewContainer.style.alignItems='center';
                         roadviewContainer.style.textAlign='center';
                     } else {
                         if(roadviewContainer.style.height=='50px'){
-                            roadviewContainer.style.height='40%';
+                            roadviewContainer.style.height='25%';
                         }
                         roadview.setPanoId(panoId, position); //panoId와 중심좌표를 통해 로드뷰 실행
                     }
                 });
-
             });
         }
 
@@ -289,7 +330,6 @@
             var maptype = kakao.maps.MapTypeId.ROADMAP;
             map.setMapTypeId(maptype);
         }
-
 
 
     </script>

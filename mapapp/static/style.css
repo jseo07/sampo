@@ -22,6 +22,7 @@ body {
   font-weight: bold;
 }
 
+
 .navbar {
     overflow: hidden;
     display: block;
@@ -111,7 +112,7 @@ input:focus + .slider {
 #roadview{
   transform:translateX(25%);
   width: 70%;
-  height:25%;
+  height: 25%;
   z-index:1;
   background-color:white;
   position:fixed;
@@ -121,6 +122,39 @@ input:focus + .slider {
   border-radius: 15px;
   bottom: 30px;
   border: 8px solid aliceblue;
+}
+
+
+#editview{
+  transform:translateX(25%);
+  width: 70%;
+  height:35%;
+  z-index:1;
+  background-color:aliceblue;
+  position:fixed;
+  display: none;
+  place-items: center;
+  border-radius: 15px;
+  bottom: 30px;
+  border: 8px solid cadetblue;
+  left: 0;
+}
+
+.editlocation *{
+  width: 30vh;
+}
+
+#delete, #updatebtn{
+  display:relative;
+  margin-top: 50px;
+  width: 40%;
+}
+
+#delete{
+  float:right;
+}
+#delete:hover, #updatebtn:hover{
+  background-color: gray;
 }
 input:checked + .slider:before {
   -webkit-transform: translateX(26px);
