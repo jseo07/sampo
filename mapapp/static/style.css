@@ -140,18 +140,24 @@ input:focus + .slider {
   left: 0;
 }
 
+#editview *{
+  margin-bottom: 0px;
+}
+
 .editlocation *{
   width: 30vh;
 }
 
 #delete, #updatebtn{
-  display:relative;
-  margin-top: 50px;
   width: 40%;
+  margin-top: 5px;
 }
 
 #delete{
   float:right;
+}
+#updatebtn{
+  float:left;
 }
 #delete:hover, #updatebtn:hover{
   background-color: gray;
